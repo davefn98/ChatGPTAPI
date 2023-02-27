@@ -12,8 +12,6 @@ namespace ChatGPTAPI.Repository
 {
     public class JWTManagerRepository : IJWTManagerRepository
     {
-        UsuarioDataModel UserGlobal = new UsuarioDataModel();
-
         //Dictionary<string, string> UsersRecords = new Dictionary<string, string> {
         //    { "user1","password1" }
         //};

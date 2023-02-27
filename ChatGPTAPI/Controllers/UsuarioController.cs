@@ -62,9 +62,6 @@ namespace ChatGPTAPI.Controllers
             return Ok();
         }
 
-        [BindProperty]
-        public UsuarioDataModel UsuarioDataModel { get; set; }
-
         [HttpPost("Login")]
         public async Task<ActionResult<string>> Login(LoginModel request)
         {
