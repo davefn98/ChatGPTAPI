@@ -7,6 +7,6 @@ namespace ChatGPTAPI.Repository
 {
     public interface IJWTManagerRepository
     {
-        TokensDataModel Authenticate(LoginModel login, UsuarioDataModel users);
+        TokensDataModel Authenticate(LoginModel login);
     }
 }

@@ -75,7 +75,7 @@ namespace ChatGPTAPI.Controllers
         public IActionResult Authenticate(LoginModel login)
         {
             UsuarioDataModel users = new UsuarioDataModel();
-            var token = _jWTManager.Authenticate(login, users);
+            var token = _jWTManager.Authenticate(login);
 
             if (token == null)
             {

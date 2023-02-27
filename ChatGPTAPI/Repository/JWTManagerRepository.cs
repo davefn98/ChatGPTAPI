@@ -15,17 +15,19 @@ namespace ChatGPTAPI.Repository
         //Dictionary<string, string> UsersRecords = new Dictionary<string, string> {
         //    { "user1","password1" }
         //};
-
         private readonly IConfiguration iconfiguration;
+        private readonly MyDatabaseContext _dbContext;
 
-        public JWTManagerRepository(IConfiguration iconfiguration) {
-            iconfiguration = iconfiguration;
+        public JWTManagerRepository(IConfiguration iconfiguration, MyDatabaseContext dbContext)
+        {
+            this.iconfiguration = iconfiguration;
+            _dbContext = dbContext;
         }
 
-        public TokensDataModel Authenticate(LoginModel login, UsuarioDataModel users)
+        public TokensDataModel Authenticate(LoginModel login)
         {
-            if (!UserGlobal.(x => x.Key == users.Name && x.Value == users.Password))
-            {
+            var users = _dbContext.Usuarios.Include(x => x.User == login.User && x.Password == login.Password);
+            if (users == null) { 
                 return null;
             }
 
@@ -35,7 +37,7 @@ namespace ChatGPTAPI.Repository
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, users.User)
+                    new Claim(ClaimTypes.Name, login.User)
                 }),
                 Expires = DateTime.UtcNow.AddMinutes(10),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenKey), SecurityAlgorithms.HmacSha256Signature)
